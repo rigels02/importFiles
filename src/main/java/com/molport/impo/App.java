@@ -5,8 +5,6 @@ import java.io.PrintStream;
 import java.util.List;
 
 import org.apache.log4j.PropertyConfigurator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.molport.impo.out.OutputFormater;
 import com.molport.impo.parsers.Parser_v2;
@@ -23,8 +21,7 @@ public class App {
 
 	public static void main(String[] args) {
 
-		System.out.println("args= " + args.length);
-
+		
 		PropertyConfigurator.configure("log4j.properties");
 
 		Args argsCls = new Args(args);
