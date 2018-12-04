@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * Format output for parsed records
+ * 
  * @author raitis
  */
 public class OutputFormater {
@@ -18,7 +19,7 @@ public class OutputFormater {
 	 * qtyMeasureList, etc. must be the same size. required for
 	 * {@link #lineForPackInfo(Rec)}
 	 * 
-	 * @param ps output stream
+	 * @param ps      output stream
 	 * @param records records to output
 	 */
 	public void outPrint(PrintStream ps, List<Rec> records) {
@@ -51,8 +52,8 @@ public class OutputFormater {
 
 	/**
 	 * In case of error in field field must be set as Null. packUnitList,
-	 * qtyMeasureList, etc. must be the same size.
-	 * See {@link Rec}
+	 * qtyMeasureList, etc. must be the same size. See {@link Rec}
+	 * 
 	 * @param rec
 	 * @return
 	 */

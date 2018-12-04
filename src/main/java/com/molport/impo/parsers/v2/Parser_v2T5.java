@@ -14,7 +14,7 @@ import com.molport.impo.parsers.Rec;
 import com.molport.impo.parsers.Utils;
 
 /**
- * Parser T3 for file_3
+ * Parser T5 for file_5
  *
  * @author raitis
  */
@@ -24,8 +24,8 @@ public class Parser_v2T5 implements IParser_v2T {
 
 	private static final String CAT_FIELD = "Code";
 	private static final String CAS_FIELD = "CAS_no";
-	private static final String PRICE_FIELD = "Price"; //Price2_Euro
-	private static final String SIZE_FIELD = "Quantity"; //Quantity1 = 2.5 g
+	private static final String PRICE_FIELD = "Price"; // Price2_Euro
+	private static final String SIZE_FIELD = "Quantity"; // Quantity1 = 2.5 g
 
 	private List<Rec> records = new LinkedList<>();
 	private Map<Integer, String> sizeFields = new HashMap<>();
@@ -34,27 +34,24 @@ public class Parser_v2T5 implements IParser_v2T {
 
 	private Rec rec;
 
-	
-	
-	
 	@Override
 	public List<Rec> parse(String fileName, List<PropRec> lines) {
 		int rec_num = 0;
-		
+
 		for (int i = 0; i < lines.size(); i++) {
 			rec_num = lines.get(i).getRecId();
 			rec = new Rec();
 			rec.setFileName(fileName);
 			try {
-			getCatalog_Val(lines.get(i));
-			getCasNum_Val(lines.get(i));
-			mapPrices(lines.get(i));
-			mapSizes(lines.get(i));
-			getSizesAndPrices(lines.get(i));
-			}catch(Exception ex) {
-				logger.error("Error: Rec:"+rec_num+":"+ex.getMessage());
-        		ex.printStackTrace();
-        		//continue;
+				getCatalog_Val(lines.get(i));
+				getCasNum_Val(lines.get(i));
+				mapPrices(lines.get(i));
+				mapSizes(lines.get(i));
+				getSizesAndPrices(lines.get(i));
+			} catch (Exception ex) {
+				logger.error("Error: Rec:" + rec_num + ":" + ex.getMessage());
+				ex.printStackTrace();
+				// continue;
 			}
 
 			records.add(rec);
@@ -69,7 +66,7 @@ public class Parser_v2T5 implements IParser_v2T {
 			if (key.contains(SIZE_FIELD)) {
 
 				int idx = exctractIdx(key);
-				
+
 				sizeFields.put(idx, propRec.getValLst().get(i));
 
 			}
@@ -89,7 +86,7 @@ public class Parser_v2T5 implements IParser_v2T {
 
 				int idx = exctractIdx(key);
 				priceFields.put(idx, propRec.getValLst().get(i));
-				String parts[]= key.split("_");
+				String parts[] = key.split("_");
 				currFields.put(idx, parts[1]);
 
 			}
@@ -102,19 +99,20 @@ public class Parser_v2T5 implements IParser_v2T {
 			String unit_g = sizeFields.get(key_id);
 			String[] parts = unit_g.split(" ");
 			String digit_part = parts[0];
-			//String digit_part = unit_g.replaceAll("[^0-9]", "").trim();
-			//String unit = unit_g.substring(unit_g.indexOf(digit_part) + digit_part.length(), unit_g.length());
+			// String digit_part = unit_g.replaceAll("[^0-9]", "").trim();
+			// String unit = unit_g.substring(unit_g.indexOf(digit_part) +
+			// digit_part.length(), unit_g.length());
 			String unit = parts[1];
 			rec.getPackUnitList().add(Float.valueOf(digit_part));
 			rec.getQtyMeasureList().add(unit);
-			//get price value
+			// get price value
 			try {
-			rec.getPriceList().add(Float.valueOf(priceFields.get(key_id)));
-			}catch(Exception ex) {
+				rec.getPriceList().add(Float.valueOf(priceFields.get(key_id)));
+			} catch (Exception ex) {
 				rec.getPriceList().add(null);
-				logger.error("Bad number format:{}",priceFields.get(key_id));
-	            rec.getErrors().add("Bad number format: "+priceFields.get(key_id));
-	            //return;
+				logger.error("Bad number format:{}", priceFields.get(key_id));
+				rec.getErrors().add("Bad number format: " + priceFields.get(key_id));
+				// return;
 			}
 			rec.getCurrList().add(currFields.get(key_id));
 		}
@@ -123,13 +121,13 @@ public class Parser_v2T5 implements IParser_v2T {
 
 	private void getCasNum_Val(PropRec propRec) {
 		int idx = propRec.getPropLst().indexOf(CAS_FIELD);
-		if(idx == -1) {
+		if (idx == -1) {
 			logger.error("Cas number not provided");
 			rec.getErrors().add("Cas number not provided");
 			return;
 		}
 		String cas = propRec.getValLst().get(idx).trim();
-		
+
 		if (Utils.casOk(cas)) {
 
 			rec.setCasNum(cas);

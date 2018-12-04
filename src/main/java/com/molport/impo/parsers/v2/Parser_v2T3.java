@@ -41,15 +41,15 @@ public class Parser_v2T3 implements IParser_v2T {
 			rec = new Rec();
 			rec.setFileName(fileName);
 			try {
-			getCatalog_Val(lines.get(i));
-			getCasNum_Val(lines.get(i));
-			mapPrices(lines.get(i));
-			mapSizes(lines.get(i));
-			getSizesAndPrices(lines.get(i));
-			}catch (Exception ex) {
-				logger.error("Error: Rec:"+rec_num+":"+ex.getMessage());
-        		ex.printStackTrace();
-        		continue;
+				getCatalog_Val(lines.get(i));
+				getCasNum_Val(lines.get(i));
+				mapPrices(lines.get(i));
+				mapSizes(lines.get(i));
+				getSizesAndPrices(lines.get(i));
+			} catch (Exception ex) {
+				logger.error("Error: Rec:" + rec_num + ":" + ex.getMessage());
+				ex.printStackTrace();
+				continue;
 			}
 			records.add(rec);
 		}
@@ -104,13 +104,13 @@ public class Parser_v2T3 implements IParser_v2T {
 
 	private void getCasNum_Val(PropRec propRec) {
 		int idx = propRec.getPropLst().indexOf(CAS_FIELD);
-		if(idx == -1) {
+		if (idx == -1) {
 			logger.error("No CAS number");
-            rec.getErrors().add("No CAS number");
-            return;
+			rec.getErrors().add("No CAS number");
+			return;
 		}
 		String cas = propRec.getValLst().get(idx);
-		String cas1 = cas.substring(1, cas.length()-1).trim();
+		String cas1 = cas.substring(1, cas.length() - 1).trim();
 		if (Utils.casOk(cas1)) {
 
 			rec.setCasNum(cas1);
@@ -124,10 +124,10 @@ public class Parser_v2T3 implements IParser_v2T {
 
 	private void getCatalog_Val(PropRec propRec) {
 		int idx = propRec.getPropLst().indexOf(CAT_FIELD);
-		if(idx == -1) {
+		if (idx == -1) {
 			logger.error("No CAT number");
-            rec.getErrors().add("No CAT number");
-            return;
+			rec.getErrors().add("No CAT number");
+			return;
 		}
 		rec.setCatNum(propRec.getValLst().get(idx));
 

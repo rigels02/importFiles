@@ -23,7 +23,7 @@ import chemaxon.struc.Molecule;
 public class Parser_v2T1Test {
 
 	private int recCount = 1;
-	
+
 	private List<PropRec> getPropeties(String fileName) throws MolFormatException, IOException {
 
 		List<PropRec> recs = new ArrayList<>();
@@ -31,13 +31,13 @@ public class Parser_v2T1Test {
 		try (MolImporter mimpo1 = new MolImporter(fileName)) {
 
 			Stream<Molecule> mols = mimpo1.getMolStream();
-			
+
 			mols.forEach(mo -> {
 				String fName = Paths.get(mimpo1.getFileName()).getFileName().toString();
 				// int recNum = mimpo1.getRecordCount();
-				
+
 				int propNum = mo.getPropertyCount();
-				
+
 				PropRec props = new PropRec();
 				props.setRecId(recCount);
 				recCount++;
@@ -180,7 +180,7 @@ public class Parser_v2T1Test {
 		ps.close();
 
 	}
-	
+
 	@Test
 	public void test_Parser_v2_with_file_input_2() throws MolFormatException, IOException {
 
@@ -197,6 +197,7 @@ public class Parser_v2T1Test {
 		ps.close();
 
 	}
+
 	@Test
 	public void test_Parser_v2_with_file_input_3() throws MolFormatException, IOException {
 
@@ -213,7 +214,7 @@ public class Parser_v2T1Test {
 		ps.close();
 
 	}
-	
+
 	@Test
 	public void test_Parser_v2_with_file_input_4() throws MolFormatException, IOException {
 
@@ -230,7 +231,7 @@ public class Parser_v2T1Test {
 		ps.close();
 
 	}
-	
+
 	@Test
 	public void test_Parser_v2_with_file_input_5() throws MolFormatException, IOException {
 
@@ -247,6 +248,7 @@ public class Parser_v2T1Test {
 		ps.close();
 
 	}
+
 	@Test
 	public void test_Parser_v2_with_file_file_01() throws MolFormatException, IOException {
 
@@ -263,7 +265,7 @@ public class Parser_v2T1Test {
 		ps.close();
 
 	}
-	
+
 	@Test
 	public void test_Parser_v2_with_file_file_02() throws MolFormatException, IOException {
 
@@ -280,7 +282,7 @@ public class Parser_v2T1Test {
 		ps.close();
 
 	}
-	
+
 	@Test
 	public void test_Parser_v2_with_file_file_03() throws MolFormatException, IOException {
 
@@ -297,6 +299,7 @@ public class Parser_v2T1Test {
 		ps.close();
 
 	}
+
 	@Test
 	public void test_Parser_v2_with_file_file_04() throws MolFormatException, IOException {
 
@@ -313,7 +316,7 @@ public class Parser_v2T1Test {
 		ps.close();
 
 	}
-	
+
 	@Test
 	public void test_Parser_v2_with_file_file_05() throws MolFormatException, IOException {
 

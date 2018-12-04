@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- *
+ *  Output for Debug
+ *  
  * @author raitis
  */
 public class DOutput {

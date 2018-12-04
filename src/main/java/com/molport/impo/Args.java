@@ -8,7 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- *
+ * Process command line arguments
+ * 
  * @author raitis
  */
 public class Args {
@@ -45,12 +46,12 @@ public class Args {
 		}
 		File fi = new File(dirName);
 		if (fi.isDirectory()) {
-			
+
 			String[] flst = fi.list();
 			files = new String[flst.length];
-			for (int i=0; i< flst.length; i++) {
-				files[i] = dirName+"/"+flst[i];
-				
+			for (int i = 0; i < flst.length; i++) {
+				files[i] = dirName + "/" + flst[i];
+
 			}
 		} else {
 			files = new String[1];

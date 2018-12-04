@@ -16,9 +16,8 @@ import chemaxon.formats.MolImporter;
 import chemaxon.struc.Molecule;
 
 /**
- * Using molport Chemaxon jchem.
- * CATALOG_FIELDS Map is used to get associated file type to call
- * necessary Parser_v2Tx.
+ * Using molport Chemaxon jchem. CATALOG_FIELDS Map is used to get associated
+ * file type to call necessary Parser_v2Tx.
  * 
  * @author raitis
  *
@@ -41,6 +40,7 @@ public class Parser_v2 {
 
 	/**
 	 * Main parser method
+	 * 
 	 * @param fileName input file to parse
 	 * @return
 	 */
@@ -64,7 +64,7 @@ public class Parser_v2 {
 		FileTypes key = CATALOG_FIELDS.get(token);
 
 		IParser_v2T parser = FileTypeParserFactoryV2.get(key);
-		if(parser == null) {
+		if (parser == null) {
 			logger.error("Unknown File type. File: {}", fileName);
 			return null;
 		}
@@ -76,8 +76,7 @@ public class Parser_v2 {
 	private List<PropRec> getPropeties(String fileName) throws MolFormatException, IOException {
 
 		List<PropRec> recs = new ArrayList<>();
-		
-				
+
 		try (MolImporter mimpo1 = new MolImporter(fileName)) {
 
 			Stream<Molecule> mols = mimpo1.getMolStream();
@@ -88,11 +87,11 @@ public class Parser_v2 {
 				int propNum = mo.getPropertyCount();
 
 				PropRec props = new PropRec();
-				
+
 				int recCount = 1;
-				props.setRecId(recCount );
+				props.setRecId(recCount);
 				recCount++;
-				
+
 				for (int i = 0; i < propNum; i++) {
 
 					String key = mo.getPropertyKey(i);
