@@ -16,7 +16,9 @@ import chemaxon.formats.MolImporter;
 import chemaxon.struc.Molecule;
 
 /**
- * Using molport Chemaxon jchem
+ * Using molport Chemaxon jchem.
+ * CATALOG_FIELDS Map is used to get associated file type to call
+ * necessary Parser_v2Tx.
  * 
  * @author raitis
  *
@@ -37,6 +39,11 @@ public class Parser_v2 {
 
 	}
 
+	/**
+	 * Main parser method
+	 * @param fileName input file to parse
+	 * @return
+	 */
 	public List<Rec> doParse(String fileName) {
 
 		List<PropRec> recs = null;

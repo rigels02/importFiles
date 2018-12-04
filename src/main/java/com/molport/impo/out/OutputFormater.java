@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 /**
- *
+ * Format output for parsed records
  * @author raitis
  */
 public class OutputFormater {
@@ -18,8 +18,8 @@ public class OutputFormater {
 	 * qtyMeasureList, etc. must be the same size. required for
 	 * {@link #lineForPackInfo(Rec)}
 	 * 
-	 * @param ps
-	 * @param records
+	 * @param ps output stream
+	 * @param records records to output
 	 */
 	public void outPrint(PrintStream ps, List<Rec> records) {
 

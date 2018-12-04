@@ -110,7 +110,7 @@ public class Parser_v2T3 implements IParser_v2T {
             return;
 		}
 		String cas = propRec.getValLst().get(idx);
-		String cas1 = cas.substring(1, cas.length()-1);
+		String cas1 = cas.substring(1, cas.length()-1).trim();
 		if (Utils.casOk(cas1)) {
 
 			rec.setCasNum(cas1);

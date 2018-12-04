@@ -128,7 +128,7 @@ public class Parser_v2T5 implements IParser_v2T {
 			rec.getErrors().add("Cas number not provided");
 			return;
 		}
-		String cas = propRec.getValLst().get(idx);
+		String cas = propRec.getValLst().get(idx).trim();
 		
 		if (Utils.casOk(cas)) {
 

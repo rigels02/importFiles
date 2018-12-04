@@ -93,7 +93,7 @@ public class Parser_v2T1 implements IParser_v2T {
             rec.getErrors().add("No CAS number");
             return;
 		}
-		String cas = propRec.getValLst().get(idx);
+		String cas = propRec.getValLst().get(idx).trim();
 		if(Utils.casOk(cas)){
 			
 			rec.setCasNum(cas);

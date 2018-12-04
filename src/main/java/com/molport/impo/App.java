@@ -1,8 +1,17 @@
 package com.molport.impo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.util.List;
+
 import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.molport.impo.out.OutputFormater;
+import com.molport.impo.parsers.Parser_v2;
+import com.molport.impo.parsers.Rec;
 //import chemaxon.formats.MolImporter
 
 
@@ -18,11 +27,32 @@ public class App {
         
         System.out.println("args= "+args.length);
         
-        
         PropertyConfigurator.configure("log4j.properties");
-
-        logger.info("Hello from logger {}....{}","Raitis",23);
         
+        Args argsCls = new Args(args);
+        String[] inputFiles = argsCls.getInputFiles();
+        PrintStream output=null;
+        if(inputFiles==null) {
+        	return;
+        }
+        try {
+			output = argsCls.getOutputStream();
+		} catch (FileNotFoundException e) {
+			System.err.println(e.getMessage());
+			return;
+		}
+        
+        Parser_v2 parser = new Parser_v2();
+        OutputFormater oFmt = new OutputFormater();
+        PrintStream ps = new PrintStream(output);
+        
+        for (String filePath : inputFiles) {
+			List<Rec> result = parser.doParse(filePath);
+			
+			oFmt.outPrint(ps, result);
+			
+		}
+        ps.close();
     }
     
 }
