@@ -34,13 +34,21 @@ public class Parser_v2T1 implements IParser_v2T {
 
     @Override
     public List<Rec> parse(String fileName, List<PropRec> lines) {
-        
+        int rec_num = 0;
         for(int i=0; i< lines.size(); i++) {
         	rec = new Rec();
+        	
         	rec.setFileName(fileName);
+        	try {
+        	rec_num = lines.get(i).getRecId();
         	getCatalog_Val(lines.get(i));
         	getCasNum_Val(lines.get(i));
         	getPrices(lines.get(i));
+        	}catch(Exception ex) {
+        		logger.error("Error: Rec:"+rec_num+":"+ex.getMessage());
+        		ex.printStackTrace();
+        		continue;
+        	}
         	records.add(rec);
         }
 
@@ -80,12 +88,17 @@ public class Parser_v2T1 implements IParser_v2T {
 
 	private void getCasNum_Val(PropRec propRec) {
 		int idx = propRec.getPropLst().indexOf(CAS_FIELD);
+		if(idx == -1) {
+			logger.error("No CAS number");
+            rec.getErrors().add("No CAS number");
+            return;
+		}
 		String cas = propRec.getValLst().get(idx);
 		if(Utils.casOk(cas)){
 			
 			rec.setCasNum(cas);
 		}else {
-			logger.error("\"Invalid cas number \"{}\"",cas);
+			logger.error("Invalid cas number \"{}\"",cas);
             rec.getErrors().add("Invalid cas number \""+cas+"\"");
 			
 		}

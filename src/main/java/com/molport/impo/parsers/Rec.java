@@ -3,8 +3,14 @@ package com.molport.impo.parsers;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.molport.impo.out.OutputFormater;
+
 /**
- *
+ * Requirement:
+ * In case of error in field value the field must be set as Null.
+ * Fields: packUnitList, qtyMeasureList, etc. must be the same size.
+ * This is required for {@link OutputFormater#outPrint(java.io.PrintStream, List)}
+ * to work properly.
  * @author raitis
  */
 public class Rec {
@@ -110,8 +116,8 @@ public class Rec {
    public String print() {
 	   StringBuilder sb = new StringBuilder();
 	   sb.append("fileName=").append(fileName).append("[").append(lineNum)
-	   .append("] catNum= ").append(catNum).append("PrieGroup= ").append(priceGroup)
-	   .append("CASNum= ").append(casNum)
+	   .append("] catNum= ").append(catNum).append("\tPrieGroup= ").append(priceGroup)
+	   .append("\tCASNum= ").append(casNum)
 	   .append("\n").append("packUnitList:\n");
 	   for (float un : packUnitList) {
 		   sb.append("un: ").append(un).append("\n");

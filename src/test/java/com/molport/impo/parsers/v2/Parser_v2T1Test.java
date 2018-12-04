@@ -21,6 +21,8 @@ import chemaxon.formats.MolImporter;
 import chemaxon.struc.Molecule;
 
 public class Parser_v2T1Test {
+
+	private int recCount = 1;
 	
 	private List<PropRec> getPropeties(String fileName) throws MolFormatException, IOException {
 
@@ -29,13 +31,16 @@ public class Parser_v2T1Test {
 		try (MolImporter mimpo1 = new MolImporter(fileName)) {
 
 			Stream<Molecule> mols = mimpo1.getMolStream();
+			
 			mols.forEach(mo -> {
 				String fName = Paths.get(mimpo1.getFileName()).getFileName().toString();
 				// int recNum = mimpo1.getRecordCount();
-
+				
 				int propNum = mo.getPropertyCount();
-
+				
 				PropRec props = new PropRec();
+				props.setRecId(recCount);
+				recCount++;
 				for (int i = 0; i < propNum; i++) {
 
 					String key = mo.getPropertyKey(i);
@@ -60,9 +65,9 @@ public class Parser_v2T1Test {
 		Parser_v2T1 parser = new Parser_v2T1();
 		List<Rec> records = parser.parse("Tst.txt", props);
 		System.out.println(records);
-		
+
 	}
-	
+
 	@Test
 	public void test_Parser_v2T2() throws MolFormatException, IOException {
 		String file = "src/test/data/input_2.sdf";
@@ -71,9 +76,9 @@ public class Parser_v2T1Test {
 		Parser_v2T2 parser = new Parser_v2T2();
 		List<Rec> records = parser.parse("Tst.txt", props);
 		System.out.println(records);
-		
+
 	}
-	
+
 	@Test
 	public void test_Parser_v2T3() throws MolFormatException, IOException {
 		String file = "src/test/data/input_3.sdf";
@@ -82,9 +87,9 @@ public class Parser_v2T1Test {
 		Parser_v2T3 parser = new Parser_v2T3();
 		List<Rec> records = parser.parse("Tst.txt", props);
 		System.out.println(records);
-		
+
 	}
-	
+
 	@Test
 	public void test_Parser_v2T4() throws MolFormatException, IOException {
 		String file = "src/test/data/input_4.sdf";
@@ -93,9 +98,9 @@ public class Parser_v2T1Test {
 		Parser_v2T4 parser = new Parser_v2T4();
 		List<Rec> records = parser.parse("Tst.txt", props);
 		System.out.println(records);
-		
+
 	}
-	
+
 	@Test
 	public void test_Parser_v2T5() throws MolFormatException, IOException {
 		String file1 = "src/test/data/input_02.sdf";
@@ -103,10 +108,10 @@ public class Parser_v2T1Test {
 		String file3 = "src/test/data/input_3.sdf";
 		String file4 = "src/test/data/input_4.sdf";
 		String file5 = "src/test/data/input_5.sdf";
-		//List<PropRec> props = getPropeties(file);
-		//DOutput.outFileProps("src/test/data/output.txt", props);
+		// List<PropRec> props = getPropeties(file);
+		// DOutput.outFileProps("src/test/data/output.txt", props);
 		Parser_v2 parser = new Parser_v2();
-		
+
 		List<Rec> recs = parser.doParse(file1);
 		DOutput.outFileRec("output.txt", recs);
 		recs = parser.doParse(file2);
@@ -117,9 +122,9 @@ public class Parser_v2T1Test {
 		DOutput.outFileRec("output.txt", recs);
 		recs = parser.doParse(file5);
 		DOutput.outFileRec("output.txt", recs);
-		
+
 	}
-	
+
 	@Test
 	public void test_Parser_v2_with_output() throws MolFormatException, IOException {
 		String file1 = "src/test/data/input_02.sdf";
@@ -127,10 +132,10 @@ public class Parser_v2T1Test {
 		String file3 = "src/test/data/input_3.sdf";
 		String file4 = "src/test/data/input_4.sdf";
 		String file5 = "src/test/data/input_5.sdf";
-		//List<PropRec> props = getPropeties(file);
-		//DOutput.outFileProps("src/test/data/output.txt", props);
+		// List<PropRec> props = getPropeties(file);
+		// DOutput.outFileProps("src/test/data/output.txt", props);
 		Parser_v2 parser = new Parser_v2();
-		
+
 		List<Rec> recs = parser.doParse(file1);
 		DOutput.outFileRecCols("output.txt", recs);
 		OutputFormater oFmt = new OutputFormater();
@@ -139,7 +144,7 @@ public class Parser_v2T1Test {
 		ps.close();
 		recs = parser.doParse(file2);
 		DOutput.outFileRecCols("output.txt", recs);
-	    ps = new PrintStream(new File("output_2.txt"));
+		ps = new PrintStream(new File("output_2.txt"));
 		oFmt.outPrint(ps, recs);
 		ps.close();
 		recs = parser.doParse(file3);
@@ -159,4 +164,170 @@ public class Parser_v2T1Test {
 		ps.close();
 	}
 
+	@Test
+	public void test_Parser_v2_with_file_input02() throws MolFormatException, IOException {
+
+		String file = "src/test/data/input_02.sdf";
+		List<PropRec> props = getPropeties(file);
+		DOutput.outFileProps("src/test/data/output.txt", props);
+		Parser_v2 parser = new Parser_v2();
+
+		List<Rec> recs = parser.doParse(file);
+		DOutput.outFileRecCols("src/test/data/recs.txt", recs);
+		OutputFormater oFmt = new OutputFormater();
+		PrintStream ps = new PrintStream(new File("src/test/data/output_1.txt"));
+		oFmt.outPrint(ps, recs);
+		ps.close();
+
+	}
+	
+	@Test
+	public void test_Parser_v2_with_file_input_2() throws MolFormatException, IOException {
+
+		String file = "src/test/data/input_2.sdf";
+		List<PropRec> props = getPropeties(file);
+		DOutput.outFileProps("src/test/data/output.txt", props);
+		Parser_v2 parser = new Parser_v2();
+
+		List<Rec> recs = parser.doParse(file);
+		DOutput.outFileRecCols("src/test/data/recs.txt", recs);
+		OutputFormater oFmt = new OutputFormater();
+		PrintStream ps = new PrintStream(new File("src/test/data/output_1.txt"));
+		oFmt.outPrint(ps, recs);
+		ps.close();
+
+	}
+	@Test
+	public void test_Parser_v2_with_file_input_3() throws MolFormatException, IOException {
+
+		String file = "src/test/data/input_3.sdf";
+		List<PropRec> props = getPropeties(file);
+		DOutput.outFileProps("src/test/data/output.txt", props);
+		Parser_v2 parser = new Parser_v2();
+
+		List<Rec> recs = parser.doParse(file);
+		DOutput.outFileRecCols("src/test/data/recs.txt", recs);
+		OutputFormater oFmt = new OutputFormater();
+		PrintStream ps = new PrintStream(new File("src/test/data/output_1.txt"));
+		oFmt.outPrint(ps, recs);
+		ps.close();
+
+	}
+	
+	@Test
+	public void test_Parser_v2_with_file_input_4() throws MolFormatException, IOException {
+
+		String file = "src/test/data/input_4.sdf";
+		List<PropRec> props = getPropeties(file);
+		DOutput.outFileProps("src/test/data/output.txt", props);
+		Parser_v2 parser = new Parser_v2();
+
+		List<Rec> recs = parser.doParse(file);
+		DOutput.outFileRecCols("src/test/data/recs.txt", recs);
+		OutputFormater oFmt = new OutputFormater();
+		PrintStream ps = new PrintStream(new File("src/test/data/output_1.txt"));
+		oFmt.outPrint(ps, recs);
+		ps.close();
+
+	}
+	
+	@Test
+	public void test_Parser_v2_with_file_input_5() throws MolFormatException, IOException {
+
+		String file = "src/test/data/input_5.sdf";
+		List<PropRec> props = getPropeties(file);
+		DOutput.outFileProps("src/test/data/output.txt", props);
+		Parser_v2 parser = new Parser_v2();
+
+		List<Rec> recs = parser.doParse(file);
+		DOutput.outFileRecCols("src/test/data/recs.txt", recs);
+		OutputFormater oFmt = new OutputFormater();
+		PrintStream ps = new PrintStream(new File("src/test/data/output_1.txt"));
+		oFmt.outPrint(ps, recs);
+		ps.close();
+
+	}
+	@Test
+	public void test_Parser_v2_with_file_file_01() throws MolFormatException, IOException {
+
+		String file = "src/test/data/file_01.sdf";
+		List<PropRec> props = getPropeties(file);
+		DOutput.outFileProps("src/test/data/output.txt", props);
+		Parser_v2 parser = new Parser_v2();
+
+		List<Rec> recs = parser.doParse(file);
+		DOutput.outFileRecCols("src/test/data/recs.txt", recs);
+		OutputFormater oFmt = new OutputFormater();
+		PrintStream ps = new PrintStream(new File("src/test/data/output_1.txt"));
+		oFmt.outPrint(ps, recs);
+		ps.close();
+
+	}
+	
+	@Test
+	public void test_Parser_v2_with_file_file_02() throws MolFormatException, IOException {
+
+		String file = "src/test/data/file_02.sdf";
+		List<PropRec> props = getPropeties(file);
+		DOutput.outFileProps("src/test/data/output.txt", props);
+		Parser_v2 parser = new Parser_v2();
+
+		List<Rec> recs = parser.doParse(file);
+		DOutput.outFileRecCols("src/test/data/recs.txt", recs);
+		OutputFormater oFmt = new OutputFormater();
+		PrintStream ps = new PrintStream(new File("src/test/data/output_1.txt"));
+		oFmt.outPrint(ps, recs);
+		ps.close();
+
+	}
+	
+	@Test
+	public void test_Parser_v2_with_file_file_03() throws MolFormatException, IOException {
+
+		String file = "src/test/data/file_03.sdf";
+		List<PropRec> props = getPropeties(file);
+		DOutput.outFileProps("src/test/data/output.txt", props);
+		Parser_v2 parser = new Parser_v2();
+
+		List<Rec> recs = parser.doParse(file);
+		DOutput.outFileRecCols("src/test/data/recs.txt", recs);
+		OutputFormater oFmt = new OutputFormater();
+		PrintStream ps = new PrintStream(new File("src/test/data/output_1.txt"));
+		oFmt.outPrint(ps, recs);
+		ps.close();
+
+	}
+	@Test
+	public void test_Parser_v2_with_file_file_04() throws MolFormatException, IOException {
+
+		String file = "src/test/data/file_04.sdf";
+		List<PropRec> props = getPropeties(file);
+		DOutput.outFileProps("src/test/data/output.txt", props);
+		Parser_v2 parser = new Parser_v2();
+
+		List<Rec> recs = parser.doParse(file);
+		DOutput.outFileRecCols("src/test/data/recs.txt", recs);
+		OutputFormater oFmt = new OutputFormater();
+		PrintStream ps = new PrintStream(new File("src/test/data/output_1.txt"));
+		oFmt.outPrint(ps, recs);
+		ps.close();
+
+	}
+	
+	@Test
+	public void test_Parser_v2_with_file_file_05() throws MolFormatException, IOException {
+
+		String file = "src/test/data/file_05.sdf";
+		List<PropRec> props = getPropeties(file);
+		DOutput.outFileProps("src/test/data/output.txt", props);
+		Parser_v2 parser = new Parser_v2();
+
+		List<Rec> recs = parser.doParse(file);
+		DOutput.outFileRecCols("src/test/data/recs.txt", recs);
+		OutputFormater oFmt = new OutputFormater();
+		PrintStream ps = new PrintStream(new File("src/test/data/output_1.txt"));
+		oFmt.outPrint(ps, recs);
+		ps.close();
+
+	}
 }

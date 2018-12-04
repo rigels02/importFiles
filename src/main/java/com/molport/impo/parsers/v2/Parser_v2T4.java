@@ -36,15 +36,23 @@ public class Parser_v2T4 implements IParser_v2T {
 
     @Override
     public List<Rec> parse(String fileName, List<PropRec> lines) {
-        
+    	int rec_num = 0;
+    	
         for(int i=0; i< lines.size(); i++) {
+        	rec_num = lines.get(i).getRecId();
         	rec = new Rec();
         	rec.setFileName(fileName);
+        	try {
         	getCatalog_Val(lines.get(i));
         	getCasNum_Val(lines.get(i));
         	getPrice(lines.get(i));
         	getPacking(lines.get(i));
         	getPackMeasure(lines.get(i));
+        	}catch (Exception ex) {
+        		logger.error("Error: Rec:"+rec_num+":"+ex.getMessage());
+        		ex.printStackTrace();
+        		continue;
+			}
         	
         	records.add(rec);
         }
@@ -56,6 +64,11 @@ public class Parser_v2T4 implements IParser_v2T {
     
     private void getPackMeasure(PropRec propRec) {
     	int idx = propRec.getPropLst().indexOf(PACKMEASURE_FIELD);
+    	if(idx == -1) {
+			logger.error("No 'Packing_Measure' field");
+            rec.getErrors().add("No 'Packing_Measure' field");
+            return;
+		}
 		String packMeasure = propRec.getValLst().get(idx);
 		rec.getQtyMeasureList().add(packMeasure);
 		
@@ -65,6 +78,11 @@ public class Parser_v2T4 implements IParser_v2T {
 
 	private void getPacking(PropRec propRec) {
 		int idx = propRec.getPropLst().indexOf(PACKING_FIELD);
+		if(idx == -1) {
+			logger.error("No 'Packing' field");
+            rec.getErrors().add("No 'Packing' field");
+            return;
+		}
 		String packVal = propRec.getValLst().get(idx);
 		rec.getPackUnitList().add(Float.valueOf(packVal));
 		
@@ -81,6 +99,11 @@ public class Parser_v2T4 implements IParser_v2T {
 
 	private void getCasNum_Val(PropRec propRec) {
 		int idx = propRec.getPropLst().indexOf(CAS_FIELD);
+		if(idx == -1) {
+			logger.error("No CAS Number field");
+            rec.getErrors().add("No CAS Number field");
+            return;
+		}
 		String cas = propRec.getValLst().get(idx);
 		if(Utils.casOk(cas)){
 			

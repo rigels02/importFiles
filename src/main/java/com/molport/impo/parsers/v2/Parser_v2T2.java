@@ -32,12 +32,19 @@ public class Parser_v2T2 implements IParser_v2T {
 
     @Override
     public List<Rec> parse(String fileName, List<PropRec> lines) {
-        
+    	int rec_num = 0 ;
         for(int i=0; i< lines.size(); i++) {
+        	rec_num = lines.get(i).getRecId();
         	rec = new Rec();
         	rec.setFileName(fileName);
+        	try {
         	getPriceCategory(lines.get(i));
-        	
+        	}catch (Exception ex) {
+        		
+				logger.error("Error: Rec:"+rec_num+":"+ex.getMessage());
+        		ex.printStackTrace();
+        		continue;
+			}
         	records.add(rec);
         }
 

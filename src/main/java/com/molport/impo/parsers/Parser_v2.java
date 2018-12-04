@@ -69,7 +69,8 @@ public class Parser_v2 {
 	private List<PropRec> getPropeties(String fileName) throws MolFormatException, IOException {
 
 		List<PropRec> recs = new ArrayList<>();
-
+		
+				
 		try (MolImporter mimpo1 = new MolImporter(fileName)) {
 
 			Stream<Molecule> mols = mimpo1.getMolStream();
@@ -80,6 +81,11 @@ public class Parser_v2 {
 				int propNum = mo.getPropertyCount();
 
 				PropRec props = new PropRec();
+				
+				int recCount = 1;
+				props.setRecId(recCount );
+				recCount++;
+				
 				for (int i = 0; i < propNum; i++) {
 
 					String key = mo.getPropertyKey(i);

@@ -39,15 +39,23 @@ public class Parser_v2T5 implements IParser_v2T {
 	
 	@Override
 	public List<Rec> parse(String fileName, List<PropRec> lines) {
-
+		int rec_num = 0;
+		
 		for (int i = 0; i < lines.size(); i++) {
+			rec_num = lines.get(i).getRecId();
 			rec = new Rec();
 			rec.setFileName(fileName);
+			try {
 			getCatalog_Val(lines.get(i));
 			getCasNum_Val(lines.get(i));
 			mapPrices(lines.get(i));
 			mapSizes(lines.get(i));
 			getSizesAndPrices(lines.get(i));
+			}catch(Exception ex) {
+				logger.error("Error: Rec:"+rec_num+":"+ex.getMessage());
+        		ex.printStackTrace();
+        		//continue;
+			}
 
 			records.add(rec);
 		}
@@ -100,8 +108,14 @@ public class Parser_v2T5 implements IParser_v2T {
 			rec.getPackUnitList().add(Float.valueOf(digit_part));
 			rec.getQtyMeasureList().add(unit);
 			//get price value
-			
+			try {
 			rec.getPriceList().add(Float.valueOf(priceFields.get(key_id)));
+			}catch(Exception ex) {
+				rec.getPriceList().add(null);
+				logger.error("Bad number format:{}",priceFields.get(key_id));
+	            rec.getErrors().add("Bad number format: "+priceFields.get(key_id));
+	            //return;
+			}
 			rec.getCurrList().add(currFields.get(key_id));
 		}
 
