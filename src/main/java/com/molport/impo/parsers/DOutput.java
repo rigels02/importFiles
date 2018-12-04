@@ -1,11 +1,8 @@
 package com.molport.impo.parsers;
 
-import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -24,18 +21,6 @@ public class DOutput {
         }
     }
 
-    public static void outFile(String fileName, List<Line> lines) throws IOException {
-        FileWriter wr = new FileWriter(fileName);
-
-        try {
-            for (Line line : lines) {
-                wr.write(line + "\n");
-            }
-        } finally {
-        	wr.flush();
-            wr.close();
-        }
-    }
 
     public static void outFileRec(String fileName, List<Rec> records) throws IOException {
          FileWriter wr = new FileWriter(fileName);

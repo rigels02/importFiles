@@ -1,17 +1,16 @@
 package com.molport.impo.parsers.v2;
 
 
+import java.util.LinkedList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.molport.impo.parsers.IParser_v2T;
-import com.molport.impo.parsers.Line;
 import com.molport.impo.parsers.PropRec;
 import com.molport.impo.parsers.Rec;
 import com.molport.impo.parsers.Utils;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Parser T4 for file_4

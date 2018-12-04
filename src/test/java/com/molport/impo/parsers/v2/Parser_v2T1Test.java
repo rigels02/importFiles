@@ -1,7 +1,5 @@
 package com.molport.impo.parsers.v2;
 
-import static org.junit.Assert.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -14,12 +12,10 @@ import org.junit.Test;
 
 import com.molport.impo.out.OutputFormater;
 import com.molport.impo.parsers.DOutput;
-import com.molport.impo.parsers.IParser_v2T;
 import com.molport.impo.parsers.Parser_v2;
 import com.molport.impo.parsers.PropRec;
 import com.molport.impo.parsers.Rec;
 
-import chemaxon.clustering.tools.simplexml.create.PrinterPrintStream;
 import chemaxon.formats.MolFormatException;
 import chemaxon.formats.MolImporter;
 import chemaxon.struc.Molecule;

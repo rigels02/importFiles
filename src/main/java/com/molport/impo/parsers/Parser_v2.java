@@ -11,8 +11,6 @@ import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.molport.impo.out.OutputFormater;
-
 import chemaxon.formats.MolFormatException;
 import chemaxon.formats.MolImporter;
 import chemaxon.struc.Molecule;
@@ -25,7 +23,7 @@ import chemaxon.struc.Molecule;
  */
 public class Parser_v2 {
 
-	private static final Logger logger = LoggerFactory.getLogger(AbsParser.class);
+	private static final Logger logger = LoggerFactory.getLogger(Parser_v2.class);
 
 	private static final Map<String, FileTypes> CATALOG_FIELDS;
 
