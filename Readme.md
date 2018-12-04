@@ -31,4 +31,5 @@ The result of list of records (Rec) is passed to OutputFormater.outPrint() to ge
 ### Build as Maven project
 
 - Chemaxon JChem Base jar libraries must be installed in local Maven repository.
+- add Chemaxon JChem Base jars dependencies in pom.xml
 - mvn clean install
