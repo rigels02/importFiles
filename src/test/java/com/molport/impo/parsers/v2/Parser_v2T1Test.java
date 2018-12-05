@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import com.molport.impo.out.OutputFormater;
 import com.molport.impo.parsers.DOutput;
+import com.molport.impo.parsers.IParser_v2;
 import com.molport.impo.parsers.Parser_v2;
 import com.molport.impo.parsers.PropRec;
 import com.molport.impo.parsers.Rec;
@@ -110,7 +111,7 @@ public class Parser_v2T1Test {
 		String file5 = "src/test/data/input_5.sdf";
 		// List<PropRec> props = getPropeties(file);
 		// DOutput.outFileProps("src/test/data/output.txt", props);
-		Parser_v2 parser = new Parser_v2();
+		IParser_v2 parser = new Parser_v2();
 
 		List<Rec> recs = parser.doParse(file1);
 		DOutput.outFileRec("output.txt", recs);
@@ -134,7 +135,7 @@ public class Parser_v2T1Test {
 		String file5 = "src/test/data/input_5.sdf";
 		// List<PropRec> props = getPropeties(file);
 		// DOutput.outFileProps("src/test/data/output.txt", props);
-		Parser_v2 parser = new Parser_v2();
+		IParser_v2 parser = new Parser_v2();
 
 		List<Rec> recs = parser.doParse(file1);
 		DOutput.outFileRecCols("output.txt", recs);
@@ -170,7 +171,7 @@ public class Parser_v2T1Test {
 		String file = "src/test/data/input_02.sdf";
 		List<PropRec> props = getPropeties(file);
 		DOutput.outFileProps("src/test/data/output.txt", props);
-		Parser_v2 parser = new Parser_v2();
+		IParser_v2 parser = new Parser_v2();
 
 		List<Rec> recs = parser.doParse(file);
 		DOutput.outFileRecCols("src/test/data/recs.txt", recs);
@@ -187,7 +188,7 @@ public class Parser_v2T1Test {
 		String file = "src/test/data/input_2.sdf";
 		List<PropRec> props = getPropeties(file);
 		DOutput.outFileProps("src/test/data/output.txt", props);
-		Parser_v2 parser = new Parser_v2();
+		IParser_v2 parser = new Parser_v2();
 
 		List<Rec> recs = parser.doParse(file);
 		DOutput.outFileRecCols("src/test/data/recs.txt", recs);
@@ -204,7 +205,7 @@ public class Parser_v2T1Test {
 		String file = "src/test/data/input_3.sdf";
 		List<PropRec> props = getPropeties(file);
 		DOutput.outFileProps("src/test/data/output.txt", props);
-		Parser_v2 parser = new Parser_v2();
+		IParser_v2 parser = new Parser_v2();
 
 		List<Rec> recs = parser.doParse(file);
 		DOutput.outFileRecCols("src/test/data/recs.txt", recs);
@@ -221,7 +222,7 @@ public class Parser_v2T1Test {
 		String file = "src/test/data/input_4.sdf";
 		List<PropRec> props = getPropeties(file);
 		DOutput.outFileProps("src/test/data/output.txt", props);
-		Parser_v2 parser = new Parser_v2();
+		IParser_v2 parser = new Parser_v2();
 
 		List<Rec> recs = parser.doParse(file);
 		DOutput.outFileRecCols("src/test/data/recs.txt", recs);
@@ -238,7 +239,7 @@ public class Parser_v2T1Test {
 		String file = "src/test/data/input_5.sdf";
 		List<PropRec> props = getPropeties(file);
 		DOutput.outFileProps("src/test/data/output.txt", props);
-		Parser_v2 parser = new Parser_v2();
+		IParser_v2 parser = new Parser_v2();
 
 		List<Rec> recs = parser.doParse(file);
 		DOutput.outFileRecCols("src/test/data/recs.txt", recs);
@@ -255,7 +256,7 @@ public class Parser_v2T1Test {
 		String file = "src/test/data/file_01.sdf";
 		List<PropRec> props = getPropeties(file);
 		DOutput.outFileProps("src/test/data/output.txt", props);
-		Parser_v2 parser = new Parser_v2();
+		IParser_v2 parser = new Parser_v2();
 
 		List<Rec> recs = parser.doParse(file);
 		DOutput.outFileRecCols("src/test/data/recs.txt", recs);
@@ -272,7 +273,7 @@ public class Parser_v2T1Test {
 		String file = "src/test/data/file_02.sdf";
 		List<PropRec> props = getPropeties(file);
 		DOutput.outFileProps("src/test/data/output.txt", props);
-		Parser_v2 parser = new Parser_v2();
+		IParser_v2 parser = new Parser_v2();
 
 		List<Rec> recs = parser.doParse(file);
 		DOutput.outFileRecCols("src/test/data/recs.txt", recs);
@@ -289,7 +290,7 @@ public class Parser_v2T1Test {
 		String file = "src/test/data/file_03.sdf";
 		List<PropRec> props = getPropeties(file);
 		DOutput.outFileProps("src/test/data/output.txt", props);
-		Parser_v2 parser = new Parser_v2();
+		IParser_v2 parser = new Parser_v2();
 
 		List<Rec> recs = parser.doParse(file);
 		DOutput.outFileRecCols("src/test/data/recs.txt", recs);
@@ -306,7 +307,7 @@ public class Parser_v2T1Test {
 		String file = "src/test/data/file_04.sdf";
 		List<PropRec> props = getPropeties(file);
 		DOutput.outFileProps("src/test/data/output.txt", props);
-		Parser_v2 parser = new Parser_v2();
+		IParser_v2 parser = new Parser_v2();
 
 		List<Rec> recs = parser.doParse(file);
 		DOutput.outFileRecCols("src/test/data/recs.txt", recs);
@@ -323,7 +324,7 @@ public class Parser_v2T1Test {
 		String file = "src/test/data/file_05.sdf";
 		List<PropRec> props = getPropeties(file);
 		DOutput.outFileProps("src/test/data/output.txt", props);
-		Parser_v2 parser = new Parser_v2();
+		IParser_v2 parser = new Parser_v2();
 
 		List<Rec> recs = parser.doParse(file);
 		DOutput.outFileRecCols("src/test/data/recs.txt", recs);
