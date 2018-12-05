@@ -236,9 +236,9 @@ public class Parser_v2T1Test {
 	@Test
 	public void test_Parser_v2_with_file_input_5() throws MolFormatException, IOException {
 
-		String file = "src/test/data/input_5.sdf";
+		String file = "src/test/data1/file_05.sdf";
 		List<PropRec> props = getPropeties(file);
-		DOutput.outFileProps("src/test/data/output.txt", props);
+		DOutput.outFileProps("src/test/data/props.txt", props);
 		IParser_v2 parser = new Parser_v2();
 
 		List<Rec> recs = parser.doParse(file);

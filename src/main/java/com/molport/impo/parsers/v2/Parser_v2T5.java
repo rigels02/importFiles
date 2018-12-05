@@ -42,6 +42,7 @@ public class Parser_v2T5 implements IParser_v2T {
 			rec_num = lines.get(i).getRecId();
 			rec = new Rec();
 			rec.setFileName(fileName);
+			clearMaps();
 			try {
 				getCatalog_Val(lines.get(i));
 				getCasNum_Val(lines.get(i));
@@ -58,6 +59,13 @@ public class Parser_v2T5 implements IParser_v2T {
 		}
 
 		return records;
+	}
+
+	private void clearMaps() {
+		sizeFields.clear();
+		priceFields.clear();
+		currFields.clear();
+		
 	}
 
 	private void mapSizes(PropRec propRec) {
