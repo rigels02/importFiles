@@ -11,6 +11,7 @@ import com.molport.impo.parsers.IParser_v2;
 import com.molport.impo.parsers.Parser_v2;
 import com.molport.impo.parsers.Rec;
 //import chemaxon.formats.MolImporter
+import com.molport.impo.tasks.TasksRunner;
 
 /**
  *
@@ -22,10 +23,9 @@ public class App {
 
 	public static void main(String[] args) {
 
-		
 		PropertyConfigurator.configure("log4j.properties");
 
-		Args argsCls = new Args(args);
+		ArgsT argsCls = new ArgsT(args);
 		String[] inputFiles = argsCls.getInputFiles();
 		PrintStream output = null;
 		if (inputFiles == null) {
@@ -43,13 +43,22 @@ public class App {
 		PrintStream ps = new PrintStream(output);
 
 		oFmt.printHEADER(ps);
-		
-		for (String filePath : inputFiles) {
-			List<Rec> result = parser.doParse(filePath);
 
-			oFmt.outPrint(ps, result);
+		if (argsCls.isThreading()) {
+			System.out.println("Starts parallel processing ...");
+			TasksRunner tasksRunner = new TasksRunner();
+			tasksRunner.runTasks(inputFiles, parser, oFmt, ps);
 
+		} else {
+			System.out.println("Starts sequential processing...");
+			for (String filePath : inputFiles) {
+
+				List<Rec> result = parser.doParse(filePath);
+
+				oFmt.outPrint(ps, result);
+			}
 		}
+
 		ps.close();
 	}
 

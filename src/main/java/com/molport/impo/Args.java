@@ -10,7 +10,7 @@ import java.io.PrintStream;
  * 
  * @author raitis
  */
-public class Args {
+public final class Args implements IArgs {
 
 	private final String[] args;
 
@@ -18,14 +18,26 @@ public class Args {
 		this.args = args;
 	}
 
+	private void printUsage() {
+		System.out.println("Usage:\n\n" + "inportFile <sdf files directory> [output file]\n");
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.molport.impo.IArgs#getInputFiles()
+	 */
+	@Override
 	public String[] getInputFiles() {
 		if (args.length == 0) {
-			System.out.println("Usage:\n\n" + "inportFile <sdf files directory> [otput file]\n");
+			printUsage();
 			return null;
 		}
 		return getFileNames(args[0]);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.molport.impo.IArgs#getOutputStream()
+	 */
+	@Override
 	public PrintStream getOutputStream() throws FileNotFoundException {
 		if (args.length == 0 || args.length == 1) {
 			return System.out;

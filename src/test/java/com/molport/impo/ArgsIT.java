@@ -20,7 +20,7 @@ public class ArgsIT {
     @Test
     public void testGetInputFiles()  {
       
-       Args arg = new Args(new String[]{});
+       IArgs arg = new Args(new String[]{});
         String[] list = arg.getInputFiles();
         assertTrue(list == null);
         
@@ -59,6 +59,50 @@ public class ArgsIT {
         }
     }
 
-    
+    @Test
+    public void test_ArgsT() throws FileNotFoundException {
+    	
+    	String args[]= new String[] {"input.txt", "output.txt"};
+    	ArgsT clArgs = new ArgsT(args);
+    	String[] input = clArgs.getInputFiles();
+    	PrintStream output = clArgs.getOutputStream();
+    	boolean ok = clArgs.isThreading();
+    	assertTrue(input.length == 1);
+    	assertTrue(output != null);
+    	assertTrue(!ok);
+    	args = new String[] {};
+    	clArgs = new ArgsT(args);
+    	input = clArgs.getInputFiles();
+    	output = clArgs.getOutputStream();
+    	ok = clArgs.isThreading();
+    	assertTrue(input == null);
+    	assertTrue(output == null);
+    	assertTrue(!ok);
+    	args = new String[] {"input.txt"};
+    	clArgs = new ArgsT(args);
+    	input = clArgs.getInputFiles();
+    	output = clArgs.getOutputStream();
+    	ok = clArgs.isThreading();
+    	assertTrue(input.length == 1);
+    	assertTrue(output != null);
+    	assertTrue(!ok);
+    	args = new String[] {"-t","input.txt", "output.txt"};
+    	clArgs = new ArgsT(args);
+    	input = clArgs.getInputFiles();
+    	output = clArgs.getOutputStream();
+    	ok = clArgs.isThreading();
+    	assertTrue(input.length == 1);
+    	assertTrue(output != null);
+    	assertTrue(ok);
+    	args = new String[] {"-t","src/test/data1", "output.txt"};
+    	clArgs = new ArgsT(args);
+    	input = clArgs.getInputFiles();
+    	output = clArgs.getOutputStream();
+    	ok = clArgs.isThreading();
+    	assertTrue(input.length >= 1);
+    	assertTrue(output != null);
+    	assertTrue(ok);
+    	
+    }
     
 }
