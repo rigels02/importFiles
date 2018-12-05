@@ -58,8 +58,8 @@ public class Parser_v2T4 implements IParser_v2T {
 	private void getPackMeasure(PropRec propRec) {
 		int idx = propRec.getPropLst().indexOf(PACKMEASURE_FIELD);
 		if (idx == -1) {
-			logger.error("No 'Packing_Measure' field");
-			rec.getErrors().add("No 'Packing_Measure' field");
+			logger.error(IMSG.NO_PACKING_MEASURE_FIELD);
+			rec.getErrors().add(IMSG.NO_PACKING_MEASURE_FIELD);
 			return;
 		}
 		String packMeasure = propRec.getValLst().get(idx);
@@ -70,27 +70,42 @@ public class Parser_v2T4 implements IParser_v2T {
 	private void getPacking(PropRec propRec) {
 		int idx = propRec.getPropLst().indexOf(PACKING_FIELD);
 		if (idx == -1) {
-			logger.error("No 'Packing' field");
-			rec.getErrors().add("No 'Packing' field");
+			logger.error(IMSG.NO_PACKING_PROVIDED);
+			rec.getErrors().add(IMSG.NO_PACKING_PROVIDED);
 			return;
 		}
 		String packVal = propRec.getValLst().get(idx);
-		rec.getPackUnitList().add(Float.valueOf(packVal));
+		try {
+			rec.getPackUnitList().add(Float.valueOf(packVal));
+		} catch (NumberFormatException e) {
+			logger.error(IMSG.BAD_PACKAGING_UNIT_NUMBER);
+			rec.getErrors().add(IMSG.BAD_PACKAGING_UNIT_NUMBER);
+		}
 
 	}
 
 	private void getPrice(PropRec propRec) {
 		int idx = propRec.getPropLst().indexOf(PRICE_FIELD);
+		if (idx == -1) {
+			logger.error(IMSG.NO_PRICE_PROVIDED);
+			rec.getErrors().add(IMSG.NO_PRICE_PROVIDED);
+			return;
+		}
 		String price = propRec.getValLst().get(idx);
-		rec.getPriceList().add(Float.valueOf(price));
+		try {
+			rec.getPriceList().add(Float.valueOf(price));
+		} catch (NumberFormatException e) {
+			logger.error(IMSG.BAD_PRICE_NUMBER);
+			rec.getErrors().add(IMSG.BAD_PRICE_NUMBER);
+		}
 		rec.getCurrList().add("USD");
 	}
 
 	private void getCasNum_Val(PropRec propRec) {
 		int idx = propRec.getPropLst().indexOf(CAS_FIELD);
 		if (idx == -1) {
-			logger.error("No CAS Number field");
-			rec.getErrors().add("No CAS Number field");
+			logger.error(IMSG.NO_CAS_NUMBER);
+			rec.getErrors().add(IMSG.NO_CAS_NUMBER);
 			return;
 		}
 		String cas = propRec.getValLst().get(idx).trim();
@@ -98,7 +113,7 @@ public class Parser_v2T4 implements IParser_v2T {
 
 			rec.setCasNum(cas);
 		} else {
-			logger.error("\"Invalid cas number \"{}\"", cas);
+			logger.error(IMSG.INVALID_CAS_NUMBER, cas);
 			rec.getErrors().add("Invalid cas number \"" + cas + "\"");
 
 		}

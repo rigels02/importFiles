@@ -76,11 +76,15 @@ public class OutputFormater {
 			sb.append(rec.getPackUnitList().get(i)).append("\t").append(rec.getQtyMeasureList().get(i)).append("\t")
 					.append(rec.getPriceList().get(i)).append("\t").append(rec.getCurrList().get(i)).append("\t\t")
 					.append(rec.getCasNum()).append("\t");
+			
 			buildErrorString(sb, rec);
+			
 			sb.append("\n");
 		}
 		return sb.toString();
 	}
+
+	
 
 	private void buildErrorString(StringBuilder sb, Rec rec) {
 		if (!rec.getErrors().isEmpty()) {
@@ -89,5 +93,5 @@ public class OutputFormater {
 			}
 		}
 	}
-
+	
 }

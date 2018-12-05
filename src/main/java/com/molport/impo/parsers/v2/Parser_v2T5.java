@@ -20,6 +20,7 @@ import com.molport.impo.parsers.Utils;
  */
 public class Parser_v2T5 implements IParser_v2T {
 
+	
 	private static final Logger logger = LoggerFactory.getLogger(Parser_v2T5.class);
 
 	private static final String CAT_FIELD = "Code";
@@ -118,8 +119,8 @@ public class Parser_v2T5 implements IParser_v2T {
 				rec.getPriceList().add(Float.valueOf(priceFields.get(key_id)));
 			} catch (Exception ex) {
 				rec.getPriceList().add(null);
-				logger.error("Bad number format:{}", priceFields.get(key_id));
-				rec.getErrors().add("Bad number format: " + priceFields.get(key_id));
+				logger.error(IMSG.PRICE_NOT_PROVIDED_OR_WRONG, priceFields.get(key_id));
+				rec.getErrors().add(IMSG.PRICE_NOT_PROVIDED_OR_WRONG2 + priceFields.get(key_id));
 				// return;
 			}
 			rec.getCurrList().add(currFields.get(key_id));
@@ -130,8 +131,8 @@ public class Parser_v2T5 implements IParser_v2T {
 	private void getCasNum_Val(PropRec propRec) {
 		int idx = propRec.getPropLst().indexOf(CAS_FIELD);
 		if (idx == -1) {
-			logger.error("Cas number not provided");
-			rec.getErrors().add("Cas number not provided");
+			logger.error(IMSG.NO_CAS_NUMBER);
+			rec.getErrors().add(IMSG.NO_CAS_NUMBER);
 			return;
 		}
 		String cas = propRec.getValLst().get(idx).trim();
@@ -140,7 +141,7 @@ public class Parser_v2T5 implements IParser_v2T {
 
 			rec.setCasNum(cas);
 		} else {
-			logger.error("\"Invalid cas number \"{}\"", cas);
+			logger.error(IMSG.INVALID_CAS_NUMBER, cas);
 			rec.getErrors().add("Invalid cas number \"" + cas + "\"");
 
 		}

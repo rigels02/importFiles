@@ -58,7 +58,14 @@ public class Parser_v2T1 implements IParser_v2T {
 		String price1G = priceG_token.substring(id0 + 1, priceG_token.length());
 		String digitPart = price1G.replaceAll("[^0-9]", "").trim();
 		String unit = price1G.substring(price1G.indexOf(digitPart) + digitPart.length(), price1G.length());
-		rec.getPackUnitList().add(Float.valueOf(digitPart));
+		Float pu = null;
+		try {
+			pu = Float.valueOf(digitPart);
+		} catch (NumberFormatException e) {
+			logger.error(IMSG.BAD_PACKAGING_UNIT_NUMBER);
+			rec.getErrors().add(IMSG.BAD_PACKAGING_UNIT_NUMBER);
+		}
+		rec.getPackUnitList().add(pu);
 
 		rec.getQtyMeasureList().add(unit);
 
@@ -75,7 +82,14 @@ public class Parser_v2T1 implements IParser_v2T {
 			}
 		}
 		for (Integer integer : idx) {
-			rec.getPriceList().add(Float.valueOf(propRec.getValLst().get(integer)));
+			Float price = null;
+			try {
+				price = Float.valueOf(propRec.getValLst().get(integer));
+			} catch (NumberFormatException e) {
+				logger.error(IMSG.BAD_PRICE_NUMBER);
+				rec.getErrors().add(IMSG.BAD_PRICE_NUMBER);
+			}
+			rec.getPriceList().add(price);
 			rec.getCurrList().add("USD");
 		}
 
@@ -84,8 +98,8 @@ public class Parser_v2T1 implements IParser_v2T {
 	private void getCasNum_Val(PropRec propRec) {
 		int idx = propRec.getPropLst().indexOf(CAS_FIELD);
 		if (idx == -1) {
-			logger.error("No CAS number");
-			rec.getErrors().add("No CAS number");
+			logger.error(IMSG.NO_CAS_NUMBER);
+			rec.getErrors().add(IMSG.NO_CAS_NUMBER);
 			return;
 		}
 		String cas = propRec.getValLst().get(idx).trim();
@@ -93,7 +107,7 @@ public class Parser_v2T1 implements IParser_v2T {
 
 			rec.setCasNum(cas);
 		} else {
-			logger.error("Invalid cas number \"{}\"", cas);
+			logger.error(IMSG.INVALID_CAS_NUMBER, cas);
 			rec.getErrors().add("Invalid cas number \"" + cas + "\"");
 
 		}

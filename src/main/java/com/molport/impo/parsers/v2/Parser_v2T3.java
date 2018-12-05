@@ -20,6 +20,7 @@ import com.molport.impo.parsers.Utils;
  */
 public class Parser_v2T3 implements IParser_v2T {
 
+
 	private static final Logger logger = LoggerFactory.getLogger(Parser_v2T3.class);
 
 	private static final String CAT_FIELD = "Catalog#";
@@ -101,9 +102,19 @@ public class Parser_v2T3 implements IParser_v2T {
 			String digit_part = unit_g.replaceAll("[^0-9]", "").trim();
 			String unit = unit_g.substring(unit_g.indexOf(digit_part) + digit_part.length(), unit_g.length());
 
-			rec.getPackUnitList().add(Float.valueOf(digit_part));
+			try {
+				rec.getPackUnitList().add(Float.valueOf(digit_part));
+			} catch (NumberFormatException e) {
+				logger.error(IMSG.BAD_PACKAGING_UNIT_NUMBER);
+				rec.getErrors().add(IMSG.BAD_PACKAGING_UNIT_NUMBER);
+			}
 			rec.getQtyMeasureList().add(unit);
-			rec.getPriceList().add(Float.valueOf(priceFields.get(key_id)));
+			try {
+				rec.getPriceList().add(Float.valueOf(priceFields.get(key_id)));
+			} catch (NumberFormatException e) {
+				logger.error(IMSG.BAD_PRICE_NUMBER);
+				rec.getErrors().add(IMSG.BAD_PRICE_NUMBER);
+			}
 			rec.getCurrList().add("USD");
 		}
 
@@ -112,8 +123,8 @@ public class Parser_v2T3 implements IParser_v2T {
 	private void getCasNum_Val(PropRec propRec) {
 		int idx = propRec.getPropLst().indexOf(CAS_FIELD);
 		if (idx == -1) {
-			logger.error("No CAS number");
-			rec.getErrors().add("No CAS number");
+			logger.error(IMSG.NO_CAS_NUMBER);
+			rec.getErrors().add(IMSG.NO_CAS_NUMBER);
 			return;
 		}
 		String cas = propRec.getValLst().get(idx);
@@ -122,7 +133,7 @@ public class Parser_v2T3 implements IParser_v2T {
 
 			rec.setCasNum(cas1);
 		} else {
-			logger.error("\"Invalid cas number \"{}\"", cas);
+			logger.error(IMSG.INVALID_CAS_NUMBER, cas);
 			rec.getErrors().add("Invalid cas number \"" + cas + "\"");
 
 		}
@@ -132,12 +143,14 @@ public class Parser_v2T3 implements IParser_v2T {
 	private void getCatalog_Val(PropRec propRec) {
 		int idx = propRec.getPropLst().indexOf(CAT_FIELD);
 		if (idx == -1) {
-			logger.error("No CAT number");
-			rec.getErrors().add("No CAT number");
+			logger.error(IMSG.NO_CAT_NUMBER);
+			rec.getErrors().add(IMSG.NO_CAT_NUMBER);
 			return;
 		}
 		rec.setCatNum(propRec.getValLst().get(idx));
 
 	}
+	
+	
 
 }
