@@ -22,7 +22,7 @@ import chemaxon.struc.Molecule;
  * @author raitis
  *
  */
-public class Parser_v2 {
+public class Parser_v2 implements IParser_v2 {
 
 	private static final Logger logger = LoggerFactory.getLogger(Parser_v2.class);
 
@@ -38,12 +38,10 @@ public class Parser_v2 {
 
 	}
 
-	/**
-	 * Main parser method
-	 * 
-	 * @param fileName input file to parse
-	 * @return
+	/* (non-Javadoc)
+	 * @see com.molport.impo.parsers.IParser_v2#doParse(java.lang.String)
 	 */
+	@Override
 	public List<Rec> doParse(String fileName) {
 
 		List<PropRec> recs = null;

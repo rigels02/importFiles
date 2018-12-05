@@ -14,6 +14,12 @@ public class OutputFormater {
 
 	private final String head = "FILE_NAME\tCATALOG_NUMBER\tPACKAGING_UNIT\tQUANTITY_MEASURE\tPRICE\tCURRENCY\tPRICE_GROUP\tCAS_NUMBER\tERROR_TXT";
 
+	
+	public void printHEADER(PrintStream ps) {
+		ps.println(head);
+	}
+	
+	
 	/**
 	 * In case of error in field field must be set as Null. packUnitList,
 	 * qtyMeasureList, etc. must be the same size. required for
@@ -22,9 +28,8 @@ public class OutputFormater {
 	 * @param ps      output stream
 	 * @param records records to output
 	 */
-	public void outPrint(PrintStream ps, List<Rec> records) {
+	public synchronized void outPrint(PrintStream ps, List<Rec> records) {
 
-		ps.println(head);
 		for (Rec rec : records) {
 
 			if (!(rec.getPriceGroup() == null || rec.getPriceGroup().isEmpty())) {
@@ -33,10 +38,13 @@ public class OutputFormater {
 				continue;
 			}
 			String oline = lineForPackInfo(rec);
-			ps.println(oline);
+			//ps.println(oline);
+			ps.print(oline);
 		}
+
 	}
 
+	
 	private String fN(String filePath) {
 		return Paths.get(filePath).getFileName().toString();
 	}
