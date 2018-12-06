@@ -26,17 +26,7 @@ public class Parser_v2 implements IParser_v2 {
 
 	private static final Logger logger = LoggerFactory.getLogger(Parser_v2.class);
 
-	private static final Map<String, FileTypes> CATALOG_FIELDS;
-
-	static {
-		CATALOG_FIELDS = new HashMap<>();
-		CATALOG_FIELDS.put("Catalog Number", FileTypes.Type_1);
-		CATALOG_FIELDS.put("id", FileTypes.Type_2);
-		CATALOG_FIELDS.put("Catalog#", FileTypes.Type_3);
-		CATALOG_FIELDS.put("Catalogue_Number", FileTypes.Type_4);
-		CATALOG_FIELDS.put("ID", FileTypes.Type_5);
-
-	}
+	
 
 	/* (non-Javadoc)
 	 * @see com.molport.impo.parsers.IParser_v2#doParse(java.lang.String)
@@ -51,17 +41,11 @@ public class Parser_v2 implements IParser_v2 {
 			logger.error("Error process file: {}\n{}", fileName, e.getMessage());
 			return null;
 		}
+		
 		String token = recs.get(0).getPropLst().get(0);
 
-		if (!CATALOG_FIELDS.containsKey(token)) {
-
-			logger.error("Unknown File type. File: {}", fileName);
-			return null;
-		}
-
-		FileTypes key = CATALOG_FIELDS.get(token);
-
-		IParser_v2T parser = FileTypeParserFactoryV2.get(key);
+		IParser_v2T parser = FileTypeParserFactoryV2.get(token);
+		
 		if (parser == null) {
 			logger.error("Unknown File type. File: {}", fileName);
 			return null;
