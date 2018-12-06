@@ -3,9 +3,6 @@ package com.molport.impo.parsers;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.molport.impo.parsers.v2.Parser_v2T1;
 import com.molport.impo.parsers.v2.Parser_v2T2;
 import com.molport.impo.parsers.v2.Parser_v2T3;

@@ -33,3 +33,38 @@ The result of list of records (Rec) is passed to OutputFormater.outPrint() to ge
 - Chemaxon JChem Base jar libraries must be installed in local Maven repository.
 - add Chemaxon JChem Base jars dependencies in pom.xml
 - mvn clean install
+
+### Build as Maven project with access to remote repository
+
+Reference: [https://docs.chemaxon.com/display/docs/Introduction+for+Java+applications](https://docs.chemaxon.com/display/docs/Introduction+for+Java+applications)
+
+Alternatively, you can reference the ChemAxon Public Repository in your Maven project's pom.xml:
+
+~~~
+<repositories>
+    <repository>
+        <id>ChemAxon Public Repository</id>
+        <url>https://hub.chemaxon.com/artifactory/libs-release</url>
+    </repository>
+</repositories>
+ 
+<dependencies>
+    <dependency>
+        <groupId>com.chemaxon</groupId>
+        <artifactId>jchem-main</artifactId>
+        <version>17.7.0</version>
+    </dependency>
+</dependencies>
+~~~
+Then add your account info in settings.xml:
+
+~~~
+<servers>
+  <server>
+    <id>ChemAxon Public Repository</id>
+    <username>Your username</username>
+    <password>Your password</password>
+  </server>
+</servers>
+~~~
+'Your password' is generated API key.
